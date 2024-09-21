@@ -1,0 +1,484 @@
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/reset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/reveal.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/theme/simple.min.css"
+      id="theme"
+    />
+    <link rel="stylesheet" href="highlight-phpstorm-light-theme.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap"
+    />
+    <style>
+      :root {
+        --r-main-font: 'Roboto', 'Noto Color Emoji', sans-serif;
+        --r-heading-font: 'Roboto', 'Noto Color Emoji', sans-serif;
+        --r-code-font: 'Roboto Mono', 'Noto Color Emoji', monospace;
+        --r-block-margin: 10px;
+      }
+      .reveal pre {
+        font-size: 0.5em;
+      }
+      .nohighlight {
+        padding: 1em !important;
+      }
+      .reveal .hljs {
+        min-height: auto;
+      }
+      td.hljs-ln-code {
+        white-space: pre;
+      }
+      .reveal h1,
+      .reveal h2,
+      .reveal h3,
+      .reveal h4,
+      .reveal h5,
+      .reveal h6,
+      .reveal pre,
+      .reveal p,
+      .reveal img {
+        margin: 0 var(--r-block-margin) calc(var(--r-block-margin) * 2);
+      }
+      .reveal pre {
+        width: auto;
+      }
+
+      .reveal .r-stack > * {
+        margin: 0;
+      }
+      .horizontal {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .horizontal > * {
+        flex-grow: 1;
+      }
+      .horizontal-half > * {
+        flex-grow: 0 !important;
+        width: calc(50% - var(--r-block-margin) * 2) !important;
+      }
+    </style>
+    <title>Исключения</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>Исключения</h2>
+        </section>
+
+        <section>
+          <h3>Определение исключения</h3>
+          <p>
+            Исключения в программировании (exceptions) — это механизм, который
+            позволяет программе обрабатывать нетипичную ситуацию и при этом не
+            прекращать работу.
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Обрабо́тка исключи́тельных ситуа́ций (англ. exception handling) —
+            механизм языков программирования, предназначенный для описания
+            реакции программы на ошибки времени выполнения и другие возможные
+            проблемы (исключения), которые могут возникнуть при выполнении
+            программы и приводят к невозможности (бессмысленности) дальнейшей
+            отработки программой её базового алгоритма. В русском языке также
+            применяется более короткая форма термина: «обработка исключений».
+          </p>
+        </section>
+
+        <section>
+          <p>Исключение != ошибка</p>
+          <p>
+            Исключение является сигналом ошибки обработки, необработанное
+            исключение является ошибкой ПО
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Так когда же использовать исключения? Главная цель исключений —
+            сюрприз! — обозначить исключительную ситуацию в приложении.
+            Исключительная ситуация — это ситуация, в которой вы не знаете что
+            делать и наилучшим выходом для вас является прекращение выполнения
+            текущией операции (возможно, с предварительным логированием деталей
+            ошибки).
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Примерами исключительных ситуаций могут являться проблемы с
+            подключением к БД, отсутствие необходимых конфигурационных файлов и
+            т.п. Ошибки валидации не являются исключительной ситуацией, т.к.
+            метод, проверяющий входящие данные, по определению ожидает что они
+            могут быть неверными.
+          </p>
+        </section>
+
+        <section>
+          <p>
+            Другим примером корректного использования исключений является
+            валидация контрактов (code contract). Вы, как автор класса,
+            ожидаете, что клиенты этого класса будут соблюдать его контракты.
+            Ситуация, при которой контракт метода не соблюден, является
+            исключительной и заслуживает выбрасывания исключения.
+          </p>
+        </section>
+
+        <section>
+          <h3>Уровни исключений</h3>
+          <img src="img1/level_exception.png" alt="" />
+        </section>
+
+        <section>
+          <h3>Уровень ПО</h3>
+          <img src="img1/exception_po.png" alt="" />
+        </section>
+
+        <section>
+          <h3>Уровень ОС</h3>
+          <img src="img1/exception_os.png" alt="" />
+        </section>
+
+        <section>
+          <h3>Необработанное исключение ОС</h3>
+          <img src="img1/uncatch_exception_os.png" alt="" />
+        </section>
+
+        <section>
+          <h3>Обработка исключений в php</h3>
+        </section>
+
+        <section>
+          <h3>Вызов исключения</h3>
+          <pre>
+            <code class="language-php" data-trim data-line-numbers="">
+              throw new Exception("Мой текст ошибки");       
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Обработка исключительных ситуаций</h3>
+          <pre>
+            <code class="language-php" data-trim data-line-numbers="">
+              try {
+                // код...
+              } catch (Exception $e) {
+                // обработка ошибки
+              }              
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <p>В try catch могут быть catch конструкций</p>
+          <pre>
+            <code class="language-php" data-trim data-line-numbers="">
+              try {
+                // код...
+              } catch (MyException $e) {
+                // обработка ошибки
+              } catch (Exception $e) {
+                // обработка ошибки
+              }
+                            
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <img src="img1/try_catch_1.png" alt="" />
+        </section>
+
+        <section>
+          <h3>Пример исключения</h3>
+          <pre>
+            <code class="language-php" data-trim data-line-numbers="">
+              function division(int $a, int $b): int
+              {
+                  if ($b === 0)
+                      throw new Exception('Нельзя делить на ноль');
+                  else
+                      return $a / $b;
+              }
+              
+              try {
+                  echo division(1, 0);
+              } catch (Exception $e) {
+                  echo $e->getMessage();
+              }                          
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Функции котоыре есть у Exception</h3>
+          <ul>
+            <li>getMessage(): возвращает сообщение об ошибке</li>
+            <li>getCode(): возвращает код исключения</li>
+            <li>
+              getFile(): возвращает название файла, в котором возникла ошибка
+            </li>
+            <li>
+              getLine(): возвращает номер строки, в которой возникла ошибка
+            </li>
+            <li>getTrace(): возвращает трассировку стека</li>
+            <li>
+              getTraceAsString(): возвращает трассировку стека в виде строки
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Ещё один пример исключения</h3>
+          <pre>
+            <code class="language-php" data-trim data-line-numbers="">
+try {
+ 
+    $config_file_path = "config.php";
+ 
+    if (!file_exists($config_file_path))
+    {
+      throw new Exception("Configuration file not found.");
+    }
+  
+} catch (Exception $e) {
+    echo $e->getMessage();
+    die();
+}
+
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Свои исключения</h3>
+          <p>Можно писать свои исключения наследуя класс Exception</p>
+          <pre>
+            <code class="language-php" data-trim data-line-numbers="">
+              сlass ConfigFileNotFoundException extends Exception {}
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Обработка нескольких ошибок в одном catch</h3>
+          <pre><code class="language-php" data-trim data-line-numbers="">class MyCustomException extends Exception { }
+            class MyAnotherCustomException extends Exception { }
+            
+            try {
+               throw new MyAnotherCustomException;
+            } catch (MyCustomException | MyAnotherCustomException $e) {
+               echo "Caught : " . get_class($e);
+            }</code></pre>
+        </section>
+
+        <section>
+          <h3>Ключевое слово finally</h3>
+          <p>
+            Блок finally который выполнится в любом случае выкинется исключение
+            или нет
+          </p>
+        </section>
+
+        <section>
+          <h3>Ключевое слово finally</h3>
+          <pre>
+            <code class="language-php" data-trim data-line-numbers="">
+              try {
+
+
+              } catch (Exception $e) {
+                  // $e->getMessage()
+              } finally {
+                // Код который в любом случае выполниться
+              }
+              
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>Список исключений в PHP</h3>
+          <ul>
+            <li>Exception</li>
+            <li>ErrorException</li>
+            <li>Error</li>
+            <li>ArgumentCountError</li>
+            <li>ArithmeticError</li>
+            <li>AssertionError</li>
+            <li>DivisionByZeroError</li>
+            <li>CompileError</li>
+            <li>ParseError</li>
+            <li>TypeError</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Константы ошибок в php</h3>
+          <p>
+            PHP имеет много констант, которые используются в отношении ошибок.
+            Эти константы используются при настройке PHP для скрытия или
+            отображения ошибок определенных классов.
+          </p>
+        </section>
+        <section>
+          <h3>Константы ошибок в php</h3>
+          <p>
+            E_DEPRECATED – интерпретатор будет генерировать этот тип
+            предупреждений, если вы используете устаревшую языковую функцию.
+            Скрипт определенно продолжит работу без ошибок.
+          </p>
+        </section>
+
+        <section>
+          <h3>Константы ошибок в php</h3>
+          <p>
+            E_STRICT – аналогично E_DEPRECATED, это указывает на то, что вы
+            используете языковую функцию, которая в настоящее время не является
+            стандартной и может не работать в будущем. Скрипт продолжит работу
+            без каких-либо ошибок
+          </p>
+        </section>
+
+        <section>
+          <h3>Константы ошибок в php</h3>
+          <p>
+            E_PARSE – ваш синтаксис не может быть проанализирован, поэтому ваш
+            скрипт не запустится. Выполнение скрипта даже не начнется.
+          </p>
+        </section>
+        <section>
+          <h3>Константы ошибок в php</h3>
+          <p>
+            E_NOTICE – движок просто выведет информационное сообщение.
+            Выполнение скрипта не прервется и никаких ошибок не возникнет.
+          </p>
+        </section>
+        <section>
+          <h3>Константы ошибок в php</h3>
+          <p>
+            E_ERROR – скрипт не может продолжать работу и завершается. Выдаст
+            ошибки, и то, как они будут обработаны, зависит от обработчика
+            ошибок.
+          </p>
+        </section>
+
+        <section>
+          <h3>Конфигурация ошибок в PHP</h3>
+          <p>
+            В среде разработки вы хотите, чтобы все ошибки отображались, чтобы
+            вы могли исправить все проблемы, к которым они относятся, но в
+            процессе производства вы хотите подавить отправку любых системных
+            сообщений пользователю.
+          </p>
+        </section>
+
+        <section>
+          <h3>Конфигурация ошибок в PHP</h3>
+          Для этого вам необходимо настроить PHP, используя следующие параметры
+          в файле php.ini:
+
+          <ul>
+            <li>
+              display_errors – можно установить значение false для подавления
+              сообщений
+            </li>
+            <li>
+              log_errors – может использоваться для хранения сообщений об
+              ошибках в файлах журналов
+            </li>
+            <li>
+              error_reporting – можно настроить, какие ошибки вызывают отчет
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Пример error_reporting</h3>
+          <img src="img1/error_reporting.jpg" alt="" />
+        </section>
+        <section>
+          <h3>Обработка необработанных исключений</h3>
+          <p>
+            Функция set_error_handler() используется для указания PHP, как
+            обрабатывать стандартные ошибки движка, которые не являются
+            экземплярами класса исключений Error. Вы не можете использовать
+            функцию обработчика ошибок для фатальных ошибок
+          </p>
+        </section>
+
+        <section>
+          <pre><code class="language-php" data-trim data-line-numbers="">
+            function myCustomErrorHandler(int $errNo, string $errMsg, string $file, int $line) {
+                echo "Wow my custom error handler got #[$errNo] occurred in [$file] at line [$line]: [$errMsg]";
+              }
+              
+              set_error_handler('myCustomErrorHandler');
+              
+              try {
+                 what;
+              } catch (Throwable $e) {
+                 echo 'And my error is: ' . $e->getMessage();
+              }
+          </code></pre>
+        </section>
+        <section>
+          <h3>Если запустим</h3>
+          <p>
+            Error #[2] occurred in [php shell code] at line [3]: [Use of
+            undefined constant what - assumed 'what' (this will throw an Error
+            in a future version of PHP)]
+          </p>
+        </section>
+
+        <section>
+          <h3>Пример обозначения в phpdoc</h3>
+          <pre><code class="language-php" data-trim data-line-numbers="">
+                /**
+                * Counts the number of items in the provided array.
+                *
+                * @param mixed[] $array Array structure to count the elements of.
+                *
+                * @throws InvalidArgumentException if the provided argument is
+                *                                  not of type 'array'.
+                *
+                * @return int Returns the number of elements.
+                */
+                function count($items)
+                {
+                    <...>
+                }
+          </code></pre>
+        </section>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/plugin/highlight/highlight.min.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        plugins: [RevealHighlight],
+        slideNumber: true,
+        autoAnimate: true,
+      });
+    </script>
+  </body>
+</html>
